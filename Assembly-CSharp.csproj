@@ -59,6 +59,7 @@
     <Compile Include="Assets\Script\Player\AttackR.cs" />
     <Compile Include="Assets\Script\Player\Enemy.cs" />
     <Compile Include="Assets\Script\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Script\Player\HitR.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

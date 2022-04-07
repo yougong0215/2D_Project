@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public static bool bAttack = false;
+    public static float PlayerX, PlayerY;
+
+    private bool bMove = false;
+
+
 
     public float speed = 0f;
     public float Jumpspeed = 0f;
@@ -35,7 +40,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-
+        DebugRayCast();
         LRMove();
        // IsRun();
         IsGrounded();
@@ -47,27 +52,35 @@ public class PlayerMove : MonoBehaviour
             PlayerTransform.Translate(Vector2.right * amount * speed * Time.deltaTime);
             Jump();
         }
+
+        PlayerX = transform.position.x;
+        PlayerY = transform.position.y;
     }
+
+
     private void LRMove()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (bMove == false)
         {
+            if (Input.GetKey(KeyCode.D))
+            {
 
-            PlayerTransform.Translate(Vector2.right * speed * Time.deltaTime);
-            if(Input.GetKey(KeyCode.S))
-                playerSpriteRenderer.flipX = false;
-            else
-            playerSpriteRenderer.flipX = true;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
+                PlayerTransform.Translate(Vector2.right * speed * Time.deltaTime);
+                if (Input.GetKey(KeyCode.S))
+                    playerSpriteRenderer.flipX = false;
+                else
+                    playerSpriteRenderer.flipX = true;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
 
-            PlayerTransform.Translate(Vector2.left * speed * Time.deltaTime);
-            if (Input.GetKey(KeyCode.S))
-                playerSpriteRenderer.flipX = true;
-            else
-                playerSpriteRenderer.flipX = false;
+                PlayerTransform.Translate(Vector2.left * speed * Time.deltaTime);
+                if (Input.GetKey(KeyCode.S))
+                    playerSpriteRenderer.flipX = true;
+                else
+                    playerSpriteRenderer.flipX = false;
 
+            }
         }
     }
 
@@ -111,7 +124,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
+    private void DebugRayCast()
+    {
+        Debug.DrawRay(PlayerTransform.position, Vector3.down, Color.blue);
+    }
 
     private void Pering()
     {
@@ -122,16 +138,18 @@ public class PlayerMove : MonoBehaviour
         if(bAttack == false)
         if (playerSpriteRenderer.sprite.name == "Pering4" || playerSpriteRenderer.sprite.name == "Pering5" || playerSpriteRenderer.sprite.name == "Pering6")
         {
-            bAttack = true;
+                bAttack = true;
                 Debug.Log("¼º°ø");
-
+                bMove = true;
                 
         }
         if (playerSpriteRenderer.sprite.name == "idle")
         {
                bAttack = false;
+                bMove = false;
         }
     }
+
 
 
 
