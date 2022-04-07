@@ -6,28 +6,28 @@ public class PlayerMove : MonoBehaviour
 {
     public static bool bAttack = false;
     public static float PlayerX, PlayerY;
-
+    private SpriteRenderer playerSpriteRenderer = null;
     private bool bMove = false;
-
-
 
     public float speed = 0f;
     public float Jumpspeed = 0f;
     private Rigidbody2D rigid = null;
     private Transform PlayerTransform = null;
     public float jumpPower = 0f;
+
+    [SerializeField]
     private int jumpCount = 0;
   //  public UIManager uIManager;
 
     private Animator playerAnimator = null;
 
-    private SpriteRenderer playerSpriteRenderer = null;
+    
     public int maxJummpCount = 2;
 
     private float amount = 0f;
     // private AudioSource playerAudioSource = null;
 
-    private bool isGrounded = false;
+   // private bool isGrounded = false;
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -67,18 +67,27 @@ public class PlayerMove : MonoBehaviour
 
                 PlayerTransform.Translate(Vector2.right * speed * Time.deltaTime);
                 if (Input.GetKey(KeyCode.S))
+                {
                     playerSpriteRenderer.flipX = false;
+                }
                 else
+                {
                     playerSpriteRenderer.flipX = true;
+                }
             }
             if (Input.GetKey(KeyCode.A))
             {
-
+                Debug.Log("A");
                 PlayerTransform.Translate(Vector2.left * speed * Time.deltaTime);
                 if (Input.GetKey(KeyCode.S))
+                {
                     playerSpriteRenderer.flipX = true;
+                    Debug.Log("S");
+                }    
                 else
+                {
                     playerSpriteRenderer.flipX = false;
+                }
 
             }
         }
@@ -104,25 +113,26 @@ public class PlayerMove : MonoBehaviour
 
     private void IsGrounded()
     {
-        if (rigid.velocity.y < 0)
+        if(rigid.velocity.y > 0)
+        {
+            return;
+        }
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2, LayerMask.GetMask("Ground"));
+        if (raycastHit2D.collider != null)
         {
 
-
-            // 레일케스트 ㅓㄹ정 ㅇㅇ
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2, LayerMask.GetMask("Ground"));
-            if (raycastHit2D.collider != null)
-            {
-                jumpCount = 0;
-              //  playerAnimator.SetBool("Jumping", false);
-              //  Debug.Log(raycastHit2D.collider.gameObject.name);
-            }
-            else
-            {
-              //  playerAnimator.SetBool("Jumping", true);
-
-            }
+            jumpCount = 0;
+            //  playerAnimator.SetBool("Jumping", false);
+            //  Debug.Log(raycastHit2D.collider.gameObject.name);
         }
+        else
+        {
+            //  playerAnimator.SetBool("Jumping", true);
+
+        }
+
     }
+
 
     private void DebugRayCast()
     {
@@ -132,8 +142,12 @@ public class PlayerMove : MonoBehaviour
     private void Pering()
     {
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        playerAnimator.SetTrigger("Pering");
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            playerAnimator.SetTrigger("Pering");
+            Debug.Log("Q");
+        }
+        
 
         if(bAttack == false)
         if (playerSpriteRenderer.sprite.name == "Pering4" || playerSpriteRenderer.sprite.name == "Pering5" || playerSpriteRenderer.sprite.name == "Pering6")
