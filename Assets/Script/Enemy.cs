@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    protected bool bAttackLock = false;
+    public static bool bAttack = false;
 
     void Start()
     {
@@ -53,8 +55,8 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
         {
             
-                Debug.Log("아야");
-            transform.position = new Vector3(0, 0, 0);
+                Debug.Log("맞음");
+            transform.position = new Vector3(16, 0, 0);
         }
 
 

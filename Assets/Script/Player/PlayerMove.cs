@@ -165,7 +165,19 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    private void OnTriggerStay2D(Collider2D collision)
+
+    {
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            Debug.Log("¸ÂÀ½");
+            transform.position = new Vector3(16, 0, 0);
+        }
 
 
-  
+    }
+
+
 }
