@@ -33,8 +33,7 @@ public class Enemy_slime : Enemy
         if (Mathf.Abs(PX - EX) <= 6 && Mathf.Abs(PY - EY) <= 6)
         {
 
-            Debug.Log("X : " + PlayerMove.PlayerX);
-            Debug.Log("E : " + transform.position.x);
+           
             if (transform.position.x <= PlayerMove.PlayerX)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));

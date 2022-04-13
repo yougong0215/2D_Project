@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    public Image BungiCh;
-    public GameObject Bungiobj;
+
+    public Image Bungi;
+    public Sprite Bungi1;
+    public Sprite Bungi2;
+    public Sprite Bungi3;
+    public Sprite Bungi4;
     public static bool bAttack = false;
     public static float PlayerX, PlayerY;
     private SpriteRenderer playerSpriteRenderer = null;
@@ -33,8 +37,7 @@ public class PlayerMove : MonoBehaviour
    // private bool isGrounded = false;
     void Start()
     {
-        Bungiobj = GameObject.FindGameObjectWithTag("Bungi");
-        BungiCh = Bungiobj.GetComponent<Image>();
+           
         playerAnimator = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>(); // 플레이어의 트랜스폼 가져오는것
         rigid = GetComponent<Rigidbody2D>();
@@ -158,6 +161,9 @@ public class PlayerMove : MonoBehaviour
         if(bAttack == false)
         if (playerSpriteRenderer.sprite.name == "Pering4" || playerSpriteRenderer.sprite.name == "Pering5" || playerSpriteRenderer.sprite.name == "Pering6")
         {
+
+                if(Enemy.bDamaged == true)
+                BungiGage();
                 bAttack = true;
                 Debug.Log("성공");
                 bMove = true;
@@ -187,9 +193,18 @@ public class PlayerMove : MonoBehaviour
 
     private void BungiGage()
     {
-        if(Bungiobj.GetComponent<Image>().sprite.name == "Bungi1" )
+        
+        if (Bungi.sprite.name == "Gage1")
         {
-
+            Bungi.sprite = Bungi2;
+        }
+        else if (Bungi.sprite.name == "Gage2")
+        {
+            Bungi.sprite = Bungi3;
+        }
+        else if (Bungi.sprite.name == "Gage3")
+        {
+            Bungi.sprite = Bungi4;
         }
     }
 }

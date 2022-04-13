@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 {
     protected bool bAttackLock = false;
     public static bool bAttack = false;
+    public static bool bDamaged = false;
 
     void Start()
     {
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
 
         if(collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
         {
-            
+            bDamaged = true;
                 Debug.Log("¸ÂÀ½");
             transform.position = new Vector3(16, 0, 0);
         }

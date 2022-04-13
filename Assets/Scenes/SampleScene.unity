@@ -337,8 +337,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddedf5e81cfc30744ac7c0641e49df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BungiCh: {fileID: 0}
-  Bungiobj: {fileID: 0}
+  Bungi: {fileID: 0}
+  Bungi1: {fileID: 0}
+  Bungi2: {fileID: 0}
+  Bungi3: {fileID: 0}
+  Bungi4: {fileID: 0}
   speed: 0
   Jumpspeed: 0
   jumpPower: 0
@@ -541,8 +544,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23eb24d85820a4db6b045b8a7baf4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BungiCh: {fileID: 0}
-  Bungiobj: {fileID: 0}
+  Bungi: {fileID: 0}
+  Bungi1: {fileID: 0}
+  Bungi2: {fileID: 0}
+  Bungi3: {fileID: 0}
+  Bungi4: {fileID: 0}
   speed: 0
   Jumpspeed: 0
   jumpPower: 0
@@ -2140,8 +2146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69934810f1445f94f9ad61dbaccb2632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BungiCh: {fileID: 0}
-  Bungiobj: {fileID: 0}
+  Bungi: {fileID: 1412503836}
+  Bungi1: {fileID: 21300000, guid: b990c7cdcaead4849a0e939dc0d108b3, type: 3}
+  Bungi2: {fileID: 21300000, guid: 7a39f3961b8f0ec4c96203f986b1be95, type: 3}
+  Bungi3: {fileID: 21300000, guid: b1b995777a25d634c9114ff309087c89, type: 3}
+  Bungi4: {fileID: 21300000, guid: dca5b3a064bdc9b4a95bd589465bb9bd, type: 3}
   speed: 3
   Jumpspeed: 5
   jumpPower: 5
