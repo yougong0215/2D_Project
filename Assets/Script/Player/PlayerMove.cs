@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    public Image BungiCh;
+    public GameObject Bungiobj;
     public static bool bAttack = false;
     public static float PlayerX, PlayerY;
     private SpriteRenderer playerSpriteRenderer = null;
@@ -30,10 +33,13 @@ public class PlayerMove : MonoBehaviour
    // private bool isGrounded = false;
     void Start()
     {
+        Bungiobj = GameObject.FindGameObjectWithTag("Bungi");
+        BungiCh = Bungiobj.GetComponent<Image>();
         playerAnimator = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>(); // 플레이어의 트랜스폼 가져오는것
         rigid = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+
         //playerAudioSource = GetComponent<AudioSource>();
         // playerAnimator.SetBool("",true);
     }
@@ -179,5 +185,11 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    private void BungiGage()
+    {
+        if(Bungiobj.GetComponent<Image>().sprite.name == "Bungi1" )
+        {
 
+        }
+    }
 }
