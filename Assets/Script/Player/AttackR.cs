@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AttackR : PlayerMove
 {
-    GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.localScale = new Vector3(0.3f, 0.8f, 1);
     }
 
     // Update is called once per frame
@@ -16,18 +16,54 @@ public class AttackR : PlayerMove
     {
         if (Input.GetKey(KeyCode.D))
         {
-            transform.localPosition = new Vector3(0.2f,0,0);
+            transform.localPosition = new Vector3(0.3f, 0, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
 
-            transform.localPosition = new Vector3(-0.2f, 0, 0);
+            transform.localPosition = new Vector3(-0.3f, 0, 0);
         }
+
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+
+    {
         
 
-        if (PlayerMove.bAttack == true)
+        if (collision.gameObject.CompareTag("Enemy") && PlayerMove.bAttack == true && PlayerMove.bBungi == false)
         {
-            Debug.Log("이거상속됨");
+            Enemy.bDamaged = true;
+            
+            if (collision.transform.position.x <= PlayerMove.PlayerX)
+            {
+                collision.transform.position += new Vector3(-2, 0, 0);
+            } // <<
+            else if (collision.transform.position.x > PlayerMove.PlayerX)
+            {
+                collision.transform.position += new Vector3(2, 0, 0);
+            } // >>
+            
         }
+        if (PlayerMove.bAttack == true && PlayerMove.bBungi == true)
+        {
+            transform.localScale = new Vector3(2f, 0.8f, 1);
+            transform.localPosition = new Vector3(0, 0, 0);
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                
+                Invoke("DelayRence", 1f);
+                Enemy.bDamaged = true;
+                
+                collision.transform.position += new Vector3(0, 3, 0);
+            }
+        }
+    }
+
+    private void DelayRence()
+    {
+        Debug.Log("너가 멍청한거야 ㅋㅋ");
+        transform.localScale = new Vector3(0.3f, 0.8f, 1);
     }
 }

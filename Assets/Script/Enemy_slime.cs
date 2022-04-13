@@ -69,7 +69,15 @@ public class Enemy_slime : Enemy
         }
 
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("에너미쪽 닿음");
+        if (collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
+        {
+            Debug.Log("에너미쪽 닿음2");
+            bDamaged = true;
+        }
+    }
 
 
 

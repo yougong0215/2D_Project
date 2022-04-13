@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    public static bool bBungi= false;
 
     public Image Bungi;
     public Sprite Bungi1;
     public Sprite Bungi2;
     public Sprite Bungi3;
     public Sprite Bungi4;
+
+    public static bool bInvin = false;
     public static bool bAttack = false;
     public static float PlayerX, PlayerY;
     private SpriteRenderer playerSpriteRenderer = null;
@@ -61,11 +64,44 @@ public class PlayerMove : MonoBehaviour
             PlayerTransform.Translate(Vector2.right * amount * speed * Time.deltaTime);
             Jump();
         }
+        if (Input.GetKeyDown(KeyCode.T) && Bungi.sprite.name == "Gage4")
+        {
+            bBungi = true;
+        }
+        BungiAttack();
 
         PlayerX = transform.position.x;
         PlayerY = transform.position.y;
     }
 
+    private void BungiAttack()
+    { // 1 무적 - 2 일단 스프라이트 넣은게 없으니 돌진공격
+        if (bBungi == true)
+        {
+            if (Bungi.sprite.name == "Gage4")
+            {
+                bAttack = true;
+                bInvin = true;
+                playerAnimator.SetBool("DashAttacking", true);
+                Debug.Log("분기 공격");
+
+            }
+        }
+
+        if (playerSpriteRenderer.sprite.name == "swing6")
+        {
+            transform.position += new Vector3(0.5f, 0, 0);
+        }
+
+        if (playerSpriteRenderer.sprite.name == "swing9")
+        {
+            playerAnimator.SetBool("DashAttacking", false);
+            Bungi.sprite = Bungi1;
+            bBungi = false;
+            bInvin = false;
+            bAttack = false;    
+        }
+    }
 
     private void LRMove()
     {
@@ -162,10 +198,11 @@ public class PlayerMove : MonoBehaviour
         if (playerSpriteRenderer.sprite.name == "Pering4" || playerSpriteRenderer.sprite.name == "Pering5" || playerSpriteRenderer.sprite.name == "Pering6")
         {
 
-                if(Enemy.bDamaged == true)
-                BungiGage();
+                if (Enemy.bDamaged == true)
+                {
+                    BungiGage();
+                }
                 bAttack = true;
-                Debug.Log("성공");
                 bMove = true;
                 
         }
@@ -184,8 +221,8 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
-            Debug.Log("맞음");
-            transform.position = new Vector3(16, 0, 0);
+            
+            //transform.position = new Vector3(0, 0, 0);
         }
 
 

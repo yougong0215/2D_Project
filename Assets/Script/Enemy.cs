@@ -48,18 +48,10 @@ public class Enemy : MonoBehaviour
                 Debug.Log("정밀감지");
             }
         }
+
+        
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    
-    {
-
-        if(collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
-        {
-            bDamaged = true;
-                Debug.Log("맞음");
-            transform.position = new Vector3(16, 0, 0);
-        }
 
 
-    }
+
 }
