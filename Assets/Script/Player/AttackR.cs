@@ -32,9 +32,8 @@ public class AttackR : PlayerMove
     {
         
 
-        if (collision.gameObject.CompareTag("Enemy") && PlayerMove.bAttack == true && PlayerMove.bBungi == false)
+        if (PlayerMove.bAttack == true && PlayerMove.bBungi == false)
         {
-            Enemy.bDamaged = true;
             
             if (collision.transform.position.x <= PlayerMove.PlayerX)
             {
@@ -53,8 +52,7 @@ public class AttackR : PlayerMove
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 
-                Invoke("DelayRence", 1f);
-                Enemy.bDamaged = true;
+                Invoke("DelayRence", 0.3f);
                 
                 collision.transform.position += new Vector3(0, 3, 0);
             }
@@ -63,7 +61,6 @@ public class AttackR : PlayerMove
 
     private void DelayRence()
     {
-        Debug.Log("너가 멍청한거야 ㅋㅋ");
         transform.localScale = new Vector3(0.3f, 0.8f, 1);
     }
 }

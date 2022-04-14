@@ -69,16 +69,27 @@ public class Enemy_slime : Enemy
         }
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    bool Corutine_Clear = false;
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("에너미쪽 닿음");
         if (collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
         {
-            Debug.Log("에너미쪽 닿음2");
-            bDamaged = true;
+            if (Corutine_Clear == false)
+            {
+                Corutine_Clear = true;
+                StartCoroutine(DamagedClear());
+            }
         }
     }
 
+    protected override IEnumerator DamagedClear()
+    {
+        bDamaged = true;
+        yield return new WaitForSeconds(0.4f);
+        bDamaged = false;
+        Corutine_Clear = false;
+    }
 
 
 }

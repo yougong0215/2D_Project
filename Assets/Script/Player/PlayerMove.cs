@@ -5,36 +5,37 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    // 분기 모음
     public static bool bBungi= false;
-
     public Image Bungi;
     public Sprite Bungi1;
     public Sprite Bungi2;
     public Sprite Bungi3;
     public Sprite Bungi4;
+    private bool bAttackCoolDown;
 
-    public static bool bInvin = false;
-    public static bool bAttack = false;
-    public static float PlayerX, PlayerY;
-    private SpriteRenderer playerSpriteRenderer = null;
-    private bool bMove = false;
 
-    public float speed = 0f;
-    public float Jumpspeed = 0f;
-    private Rigidbody2D rigid = null;
-    private Transform PlayerTransform = null;
+    public static bool bInvin = false; // 무적
+    public static bool bAttack = false; // 공격 활성화 유무
+    public static float PlayerX, PlayerY; // 플레이어 실제 위치
+    
+    // 이동관련
+    private bool bMove = false; // 공격중 true되서 못 움직임
+    public float speed = 0f; 
     public float jumpPower = 0f;
-
+    public int maxJummpCount = 1;
     [SerializeField]
     private int jumpCount = 0;
-  //  public UIManager uIManager;
-
-    private Animator playerAnimator = null;
-
-    
-    public int maxJummpCount = 2;
-
     private float amount = 0f;
+
+
+    // 컴포넌트
+    private Animator playerAnimator = null;
+    private SpriteRenderer playerSpriteRenderer = null;
+    private Rigidbody2D rigid = null;
+    private Transform PlayerTransform = null;
+
+
     // private AudioSource playerAudioSource = null;
 
    // private bool isGrounded = false;
@@ -52,57 +53,31 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        DebugRayCast();
         LRMove();
        // IsRun();
-        IsGrounded();
+       
 
         Pering();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             amount = Input.GetAxis("Horizontal");
             PlayerTransform.Translate(Vector2.right * amount * speed * Time.deltaTime);
             Jump();
         }
+        IsGrounded();
+
         if (Input.GetKeyDown(KeyCode.T) && Bungi.sprite.name == "Gage4")
         {
             bBungi = true;
         }
         BungiAttack();
-
+        PIdle();
         PlayerX = transform.position.x;
         PlayerY = transform.position.y;
     }
 
-    private void BungiAttack()
-    { // 1 무적 - 2 일단 스프라이트 넣은게 없으니 돌진공격
-        if (bBungi == true)
-        {
-            if (Bungi.sprite.name == "Gage4")
-            {
-                bAttack = true;
-                bInvin = true;
-                playerAnimator.SetBool("DashAttacking", true);
-                Debug.Log("분기 공격");
-
-            }
-        }
-
-        if (playerSpriteRenderer.sprite.name == "swing6")
-        {
-            transform.position += new Vector3(0.5f, 0, 0);
-        }
-
-        if (playerSpriteRenderer.sprite.name == "swing9")
-        {
-            playerAnimator.SetBool("DashAttacking", false);
-            Bungi.sprite = Bungi1;
-            bBungi = false;
-            bInvin = false;
-            bAttack = false;    
-        }
-    }
-
+    
     private void LRMove()
     {
         if (bMove == false)
@@ -122,12 +97,11 @@ public class PlayerMove : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.A))
             {
-                Debug.Log("A");
                 PlayerTransform.Translate(Vector2.left * speed * Time.deltaTime);
                 if (Input.GetKey(KeyCode.S))
                 {
                     playerSpriteRenderer.flipX = true;
-                    Debug.Log("S");
+                    
                 }    
                 else
                 {
@@ -158,14 +132,10 @@ public class PlayerMove : MonoBehaviour
 
     private void IsGrounded()
     {
-        if(rigid.velocity.y > 0)
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2f, LayerMask.GetMask("Ground"));
+        if (raycastHit2D.collider != null && jumpCount >= 1)
         {
-            return;
-        }
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2, LayerMask.GetMask("Ground"));
-        if (raycastHit2D.collider != null)
-        {
-
+            
             jumpCount = 0;
             //  playerAnimator.SetBool("Jumping", false);
             //  Debug.Log(raycastHit2D.collider.gameObject.name);
@@ -178,55 +148,94 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-
-    private void DebugRayCast()
+    bool CorutineCoolMaster = false;
+    private void PIdle()
     {
-        Debug.DrawRay(PlayerTransform.position, Vector3.down, Color.blue);
+        if (bAttackCoolDown == true && playerSpriteRenderer.sprite.name == "idle")
+        {
+            if (CorutineCoolMaster == false)
+            {
+                CorutineCoolMaster = true;
+                StartCoroutine(PeringDelay());
+            }
+        }
+        if(playerSpriteRenderer.sprite.name == "idle")
+        {
+            bAttack = false;
+            bMove = false;
+        }
+        
     }
-
     private void Pering()
     {
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && bAttackCoolDown == false)
         {
-            playerAnimator.SetTrigger("Pering");
-            Debug.Log("Q");
+            
+            
+                playerAnimator.SetTrigger("Pering");
+                bAttackCoolDown = true;
+            
         }
         
 
-        if(bAttack == false)
-        if (playerSpriteRenderer.sprite.name == "Pering4" || playerSpriteRenderer.sprite.name == "Pering5" || playerSpriteRenderer.sprite.name == "Pering6")
+         // 분기 게이지 충전
+        if (bAttack == false && playerSpriteRenderer.sprite.name == "Pering6")
         {
+
+                bAttack = true;
+                bMove = true;
 
                 if (Enemy.bDamaged == true)
                 {
                     BungiGage();
                 }
-                bAttack = true;
-                bMove = true;
                 
         }
-        if (playerSpriteRenderer.sprite.name == "idle")
-        {
-               bAttack = false;
-                bMove = false;
-        }
     }
 
-
-    private void OnTriggerStay2D(Collider2D collision)
-
+    IEnumerator PeringDelay()
     {
+        yield return new WaitForSeconds(1f);
+        bAttackCoolDown = false;
+        CorutineCoolMaster = false;
+    }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+    private void BungiAttack()
+    { // 1 무적 - 2 일단 스프라이트 넣은게 없으니 돌진공격
+        
+            if (bBungi == true && Bungi.sprite.name == "Gage4")
+            {
+            Bungi.sprite = Bungi1;
+            bAttack = true;
+                bInvin = true;
+                playerAnimator.SetBool("DashAttacking", true);
+                Debug.Log("분기 공격");
+
+            }
+        
+
+        if (playerSpriteRenderer.sprite.name == "swing6")
         {
-
-            
-            //transform.position = new Vector3(0, 0, 0);
+            if (playerSpriteRenderer.flipX == false)
+            {
+                transform.position += new Vector3(-1f, 0, 0);
+            }
+            if (playerSpriteRenderer.flipX == true)
+            {
+                transform.position += new Vector3(1f, 0, 0);
+            }
         }
 
-
+        if (playerSpriteRenderer.sprite.name == "swing9")
+        {
+            playerAnimator.SetBool("DashAttacking", false);
+            bBungi = false;
+            bInvin = false;
+            bAttack = false;
+        }
     }
+
 
     private void BungiGage()
     {

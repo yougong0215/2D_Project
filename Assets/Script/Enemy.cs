@@ -52,6 +52,19 @@ public class Enemy : MonoBehaviour
         
     }
 
-
-
+    
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
+        {
+            bDamaged = true;
+            StartCoroutine(DamagedClear());
+        }
+    }
+    
+     protected virtual IEnumerator DamagedClear()
+    {
+        yield return new WaitForSeconds(0.2f);
+        bDamaged = false;
+    }
 }

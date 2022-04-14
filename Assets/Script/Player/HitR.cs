@@ -22,4 +22,18 @@ public class HitR : PlayerMove
             transform.localPosition = new Vector3(0.07f, -0.1f, 0);
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+
+    {
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+
+            //transform.position = new Vector3(0, 0, 0);
+        }
+
+
+    }
 }
