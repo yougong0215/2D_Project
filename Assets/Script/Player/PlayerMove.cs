@@ -2,22 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : PlayerM
+public class PlayerMove : MonoBehaviour
 {
     float speed = 5;
-    
+
+    public bool bMove;
+
+    PlayerM PlayerMbMove;
+
     // Start is called before the first frame update
+    protected Transform PlayerTransform = null;
     void Start()
     {
-        PlayerTransform = GetComponent<Transform>(); // 플레이어의 트랜스폼 가져오는것
-
+        PlayerTransform = GetComponent<Transform>();
+        PlayerMbMove = GameObject.Find("Player").GetComponent<PlayerM>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(base.bMove + " 자식");
-        if (base.bMove == false)
+        bMove = PlayerMbMove.bMove;
+        Debug.Log(bMove + " 자식");
+        if (bMove == false)
         {
             if (Input.GetKey(KeyCode.D))
             {

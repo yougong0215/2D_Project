@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 914606368}
   - component: {fileID: 914606369}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,6 +621,7 @@ MonoBehaviour:
   jumpPower: 0
   maxJummpCount: 1
   jumpCount: 0
+  bMoveParent: {fileID: 2145875004}
 --- !u!1 &1245675699
 GameObject:
   m_ObjectHideFlags: 0
