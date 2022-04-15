@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackR : PlayerMove
+public class AttackR : PlayerM
 {
 
     // Start is called before the first frame update
@@ -32,20 +32,20 @@ public class AttackR : PlayerMove
     {
         
 
-        if (PlayerMove.bAttack == true && PlayerMove.bBungi == false)
+        if (PlayerM.bAttack == true && PlayerM.bBungi == false)
         {
             
-            if (collision.transform.position.x <= PlayerMove.PlayerX)
+            if (collision.transform.position.x <= PlayerM.PlayerX)
             {
                 collision.transform.position += new Vector3(-2, 0, 0);
             } // <<
-            else if (collision.transform.position.x > PlayerMove.PlayerX)
+            else if (collision.transform.position.x > PlayerM.PlayerX)
             {
                 collision.transform.position += new Vector3(2, 0, 0);
             } // >>
             
         }
-        if (PlayerMove.bAttack == true && PlayerMove.bBungi == true)
+        if (PlayerM.bAttack == true && PlayerM.bBungi == true)
         {
             transform.localScale = new Vector3(2f, 0.8f, 1);
             transform.localPosition = new Vector3(0, 0, 0);

@@ -26,14 +26,13 @@ public class Enemy : MonoBehaviour
 
     protected virtual void EnemyChacer()
     {
-        float PX = Mathf.Abs(PlayerMove.PlayerX);
-        float PY = Mathf.Abs(PlayerMove.PlayerY);
+        float PX = Mathf.Abs(PlayerM.PlayerX);
+        float PY = Mathf.Abs(PlayerM.PlayerY);
         float EX = Mathf.Abs(transform.position.x);
         float EY = Mathf.Abs(transform.position.y);
 
         if (PX - EX <= 6 && EX - PX <= 6 && PY - EY <= 6 && EY - PY <= 6)
         {
-            Debug.Log("종합감지");
             if(PX - EX <= 6)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -45,7 +44,6 @@ public class Enemy : MonoBehaviour
 
             if (PX - EX <= 2 && EX - PX <= 2 && PY - EY <= 2 && EY - PY <= 2)
             {
-                Debug.Log("정밀감지");
             }
         }
 
@@ -55,7 +53,7 @@ public class Enemy : MonoBehaviour
     
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
+        if (collision.gameObject.CompareTag("AttackMaster") && PlayerM.bAttack == true)
         {
             bDamaged = true;
             StartCoroutine(DamagedClear());

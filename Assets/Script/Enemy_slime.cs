@@ -25,8 +25,8 @@ public class Enemy_slime : Enemy
 
     protected override void EnemyChacer()
     {
-        float PX = Mathf.Abs(PlayerMove.PlayerX);
-        float PY = Mathf.Abs(PlayerMove.PlayerY);
+        float PX = Mathf.Abs(PlayerM.PlayerX);
+        float PY = Mathf.Abs(PlayerM.PlayerY);
         float EX = Mathf.Abs(transform.position.x);
         float EY = Mathf.Abs(transform.position.y);
 
@@ -34,11 +34,11 @@ public class Enemy_slime : Enemy
         {
 
            
-            if (transform.position.x <= PlayerMove.PlayerX)
+            if (transform.position.x <= PlayerM.PlayerX)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             } // <<
-            if (transform.position.x > PlayerMove.PlayerX)
+            if (transform.position.x > PlayerM.PlayerX)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             } // >>
@@ -73,7 +73,7 @@ public class Enemy_slime : Enemy
     bool Corutine_Clear = false;
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("AttackMaster") && PlayerMove.bAttack == true)
+        if (collision.gameObject.CompareTag("AttackMaster") && PlayerM.bAttack == true)
         {
             if (Corutine_Clear == false)
             {
