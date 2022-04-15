@@ -58,11 +58,14 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Player\HitR.cs" />
     <Compile Include="Assets\Script\Player\AttackR.cs" />
+    <Compile Include="Assets\Script\Player\PlayerMove.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\Player\CameraMOve.cs" />
     <Compile Include="Assets\Script\Enemy_slime.cs" />
     <Compile Include="Assets\Script\Player\PlayerM.cs" />
-    <Compile Include="Assets\Script\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Script\Player\PlayerFlip.cs" />
+    <Compile Include="Assets\Script\Player\PlayerJump.cs" />
+    <Compile Include="Assets\Script\Player\SpcialAttackMaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

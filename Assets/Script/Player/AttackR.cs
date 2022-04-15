@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AttackR : PlayerM
+public class AttackR : MonoBehaviour
 {
-
+    public GameObject playerSpriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        
         transform.localScale = new Vector3(0.3f, 0.8f, 1);
     }
 
@@ -20,21 +22,22 @@ public class AttackR : PlayerM
         }
         if (Input.GetKey(KeyCode.A))
         {
-
             transform.localPosition = new Vector3(-0.3f, 0, 0);
         }
 
-
+        
     }
+
+
 
     private void OnTriggerStay2D(Collider2D collision)
 
-    {
         
 
-        if (PlayerM.bAttack == true && PlayerM.bBungi == false)
+    {
+        //&& playerSpriteRenderer.sprite.name == "Pering6"
+        if(collision.gameObject.CompareTag("Enemy") )
         {
-            
             if (collision.transform.position.x <= PlayerM.PlayerX)
             {
                 collision.transform.position += new Vector3(-2, 0, 0);
@@ -43,20 +46,8 @@ public class AttackR : PlayerM
             {
                 collision.transform.position += new Vector3(2, 0, 0);
             } // >>
-            
         }
-        if (PlayerM.bAttack == true && PlayerM.bBungi == true)
-        {
-            transform.localScale = new Vector3(2f, 0.8f, 1);
-            transform.localPosition = new Vector3(0, 0, 0);
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                
-                Invoke("DelayRence", 0.3f);
-                
-                collision.transform.position += new Vector3(0, 3, 0);
-            }
-        }
+
     }
 
     private void DelayRence()
