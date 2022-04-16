@@ -12,28 +12,33 @@ public class SpcialAttackMaster : MonoBehaviour
     public Sprite Bungi3;
     public Sprite Bungi4;
 
+    PlayerM PlayerAttack;
+    int RandomGage;
 
-    protected SpriteRenderer playerSpriteRenderer = null;
+    
     private void Start()
     {
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerAttack = GameObject.Find("Player").GetComponent<PlayerM>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    bool GageCool = false;
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && playerSpriteRenderer.sprite.name == "Pering6")
+        if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
         {
-            StartCoroutine(GageUpDelay());
+            RandomGage = UnityEngine.Random.Range(0, 10);
         }
 
         if (Input.GetKeyDown(KeyCode.T) && Bungi.sprite.name == "Gage4")
         {
             bBungi = true;
         }
-    }
-    IEnumerator GageUpDelay()
-    {
-        yield return new WaitForSeconds(5f);
+
+
+
+            if (GageCool == false && RandomGage < 3)
+        {
             if (Bungi.sprite.name == "Gage1")
             {
                 Bungi.sprite = Bungi2;
@@ -46,7 +51,18 @@ public class SpcialAttackMaster : MonoBehaviour
             {
                 Bungi.sprite = Bungi4;
             }
-        
+            StartCoroutine(GageUpDelay());
+        }
+    }
+
+
+
+
+    IEnumerator GageUpDelay()
+    {
+        GageCool = true;
+        yield return new WaitForSeconds(1f);
+        GageCool = false;
     }
     /*
                 if (bBungi == true && Bungi.sprite.name == "Gage4")

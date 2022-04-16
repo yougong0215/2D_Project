@@ -6,8 +6,6 @@ public class PlayerMove : MonoBehaviour
 {
     float speed = 5;
 
-    public bool bMove;
-
     PlayerM PlayerMbMove;
 
     // Start is called before the first frame update
@@ -21,9 +19,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bMove = PlayerMbMove.bMove;
-        Debug.Log(bMove + " ÀÚ½Ä");
-        if (bMove == false)
+        
+        if (PlayerMbMove.bMove == false)
         {
             if (Input.GetKey(KeyCode.D))
             {

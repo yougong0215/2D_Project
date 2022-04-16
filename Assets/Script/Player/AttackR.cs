@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class AttackR : MonoBehaviour
 {
+    SpcialAttackMaster SP;
+    PlayerM PlayerAttack;
     void Start()
     {
-        
-        transform.localScale = new Vector3(0.3f, 0.8f, 1);
+        PlayerAttack = GameObject.Find("Player").GetComponent<PlayerM>();
+        transform.localScale = new Vector3(0.3f, 0.55f, 1);
     }
 
     void Update()
@@ -33,7 +35,7 @@ public class AttackR : MonoBehaviour
 
     {
         //&& playerSpriteRenderer.sprite.name == "Pering6"
-        if(collision.gameObject.CompareTag("Enemy") )
+        if(collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
         {
             if (collision.transform.position.x <= PlayerM.PlayerX)
             {
@@ -49,6 +51,6 @@ public class AttackR : MonoBehaviour
 
     private void DelayRence()
     {
-        transform.localScale = new Vector3(0.3f, 0.8f, 1);
+        transform.localScale = new Vector3(0.3f, 0.55f, 1);
     }
 }

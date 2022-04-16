@@ -8,6 +8,7 @@ public class PlayerM : MonoBehaviour
     // 분기 모음
     private bool bAttackCoolDown;
 
+    public bool bAttackSprite6 = false;
 
     public static bool bInvin = false; // 무적
     public static bool bAttack = false; // 공격 활성화 유무
@@ -64,7 +65,7 @@ public class PlayerM : MonoBehaviour
         }
         if(playerSpriteRenderer.sprite.name == "idle")
         {
-            bAttack = false;
+            bAttackSprite6 = false;
             bMove = false;
         }
         
@@ -82,16 +83,11 @@ public class PlayerM : MonoBehaviour
         
          // 아랫쪽 입니다
          // 분기 게이지 충전
-        if (bAttack == false && playerSpriteRenderer.sprite.name == "Pering6")
+        if (playerSpriteRenderer.sprite.name == "Pering6")
         {
 
-                bAttack = true;
+            bAttackSprite6 = true;
             bMove = true;
-
-            if (Enemy.bDamaged == true)
-                {
-                }
-                
         }
     }
 
