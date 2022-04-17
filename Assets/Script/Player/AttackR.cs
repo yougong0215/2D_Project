@@ -7,35 +7,45 @@ public class AttackR : MonoBehaviour
 {
     SpcialAttackMaster SP;
     PlayerM PlayerAttack;
+    bool bSpcial = false;
     void Start()
     {
         PlayerAttack = GameObject.Find("Player").GetComponent<PlayerM>();
+        SP = GameObject.Find("Rence").GetComponent<SpcialAttackMaster>();
         transform.localScale = new Vector3(0.3f, 0.55f, 1);
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.D))
+        Debug.Log(SP.bBungi);
+        if (SP.bBungi == false)
         {
-            transform.localPosition = new Vector3(0.3f, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.localPosition = new Vector3(-0.3f, 0, 0);
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                transform.localPosition = new Vector3(0.3f, 0, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                transform.localPosition = new Vector3(-0.3f, 0, 0);
+            }
         }
 
-        
+        if (SP.bBungi == true)
+        {
+          
+            transform.localScale = new Vector3(1f, 0.55f, 1);
+            transform.localPosition = new Vector3(-0.2f, 0, 0);
+            bSpcial = true;
+            StartCoroutine(DelayRence());
+        }
     }
 
 
 
     private void OnTriggerStay2D(Collider2D collision)
-
-        
-
     {
         //&& playerSpriteRenderer.sprite.name == "Pering6"
-        if(collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
+        if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
         {
             if (collision.transform.position.x <= PlayerM.PlayerX)
             {
@@ -46,11 +56,23 @@ public class AttackR : MonoBehaviour
                 collision.transform.position += new Vector3(2, 0, 0);
             } // >>
         }
+        if (bSpcial == true)
+        {
+            Debug.Log("æÓ≈ÿ" + SP.bBungi);
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.transform.position += new Vector3(0, 3, 0);
+            }
 
+
+        }
     }
 
-    private void DelayRence()
+    IEnumerator DelayRence()
     {
+        yield return new WaitForSeconds(0.5f);
         transform.localScale = new Vector3(0.3f, 0.55f, 1);
+        bSpcial = false;
     }
 }
+

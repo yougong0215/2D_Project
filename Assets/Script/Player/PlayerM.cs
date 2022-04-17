@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerM : MonoBehaviour
 {
+    SpcialAttackMaster Sp;
     // 분기 모음
     private bool bAttackCoolDown;
 
     public bool bAttackSprite6 = false;
 
     public static bool bInvin = false; // 무적
-    public static bool bAttack = false; // 공격 활성화 유무
+    public bool bAttack = false; // 공격 활성화 유무
     public static float PlayerX, PlayerY; // 플레이어 실제 위치
     
     // 이동관련
@@ -30,7 +31,7 @@ public class PlayerM : MonoBehaviour
    // private bool isGrounded = false;
     void Start()
     {
-           
+        Sp = GameObject.Find("Rence").GetComponent<SpcialAttackMaster>();
         playerAnimator = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>(); // 플레이어의 트랜스폼 가져오는것
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,13 +42,33 @@ public class PlayerM : MonoBehaviour
 
     void Update()
     {
+        SpcialAttack();
         Pering();
         PIdle();
         PlayerX = transform.position.x;
         PlayerY = transform.position.y;
     }
 
-    
+    void SpcialAttack()
+    {
+        if (Sp.bBungi == true)
+        {
+            Debug.Log("플무브 분기" + Sp.bBungi);
+            playerAnimator.SetTrigger("DashAttacting");
+            
+            if (playerSpriteRenderer.flipX == false)
+            {
+                transform.position += new Vector3(-3f, 0, 0);
+            }
+            if (playerSpriteRenderer.flipX == true)
+            {
+                transform.position += new Vector3(3f, 0, 0);
+            }
+            Sp.bBungi = false;   
+        }
+
+
+    }
 
 
 
@@ -78,6 +99,7 @@ public class PlayerM : MonoBehaviour
 
             playerAnimator.SetTrigger("Pering");
                 bAttackCoolDown = true;
+            bAttack = true;
             
         }
         
@@ -98,8 +120,11 @@ public class PlayerM : MonoBehaviour
         CorutineCoolMaster = false;
     }
 
-        
 
+    private void DelayRence()
+    {
+        transform.localScale = new Vector3(0.3f, 0.55f, 1);
+    }
 
 
 }

@@ -14,45 +14,57 @@ public class SpcialAttackMaster : MonoBehaviour
 
     PlayerM PlayerAttack;
     int RandomGage;
+    public SpriteRenderer playerSpriteRenderer = null;
 
-    
+    private Animator playerAnimator = null;
     private void Start()
     {
+        playerAnimator = GetComponent<Animator>();
         PlayerAttack = GameObject.Find("Player").GetComponent<PlayerM>();
+        playerSpriteRenderer = GameObject.Find("Player").GetComponent<SpriteRenderer>();
+        RandomGage = UnityEngine.Random.Range(0, 10);
+
     }
 
     bool GageCool = false;
 
+    private void Update()
+    {
+        if (Bungi.sprite.name == "Gage4" && Input.GetKey(KeyCode.T))
+        {
+            Bungi.sprite = Bungi1;
+            bBungi = true;
+            Debug.Log(bBungi + " 분기 스어마");
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
+
+
+
+     //   if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
         {
-            RandomGage = UnityEngine.Random.Range(0, 10);
+            if (GageCool == false && collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 ==true)
+            {
+                if (Bungi.sprite.name == "Gage1")
+                {
+                    Bungi.sprite = Bungi2;
+                }
+                else if (Bungi.sprite.name == "Gage2")
+                {
+                    Bungi.sprite = Bungi3;
+                }
+                else if (Bungi.sprite.name == "Gage3")
+                {
+                    Bungi.sprite = Bungi4;
+                }
+                StartCoroutine(GageUpDelay());
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.T) && Bungi.sprite.name == "Gage4")
-        {
-            bBungi = true;
-        }
 
 
-
-            if (GageCool == false && RandomGage < 3)
-        {
-            if (Bungi.sprite.name == "Gage1")
-            {
-                Bungi.sprite = Bungi2;
-            }
-            else if (Bungi.sprite.name == "Gage2")
-            {
-                Bungi.sprite = Bungi3;
-            }
-            else if (Bungi.sprite.name == "Gage3")
-            {
-                Bungi.sprite = Bungi4;
-            }
-            StartCoroutine(GageUpDelay());
-        }
     }
 
 
@@ -65,28 +77,9 @@ public class SpcialAttackMaster : MonoBehaviour
         GageCool = false;
     }
     /*
-                if (bBungi == true && Bungi.sprite.name == "Gage4")
-            {
-            Bungi.sprite = Bungi1;
-            bAttack = true;
-                bInvin = true;
-                playerAnimator.SetBool("DashAttacking", true);
-                Debug.Log("분기 공격");
-
-            }
 
 
-if (playerSpriteRenderer.sprite.name == "swing6")
-{
-    if (playerSpriteRenderer.flipX == false)
-    {
-        transform.position += new Vector3(-1f, 0, 0);
-    }
-    if (playerSpriteRenderer.flipX == true)
-    {
-        transform.position += new Vector3(1f, 0, 0);
-    }
-}
+
 
 if (playerSpriteRenderer.sprite.name == "swing9")
 {

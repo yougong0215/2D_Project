@@ -73,7 +73,7 @@ public class Enemy_slime : Enemy
     bool Corutine_Clear = false;
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("AttackMaster") && PlayerM.bAttack == true)
+        if (collision.gameObject.CompareTag("AttackMaster"))
         {
             if (Corutine_Clear == false)
             {

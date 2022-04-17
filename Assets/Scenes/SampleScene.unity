@@ -338,6 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bAttackSprite6: 0
+  bAttack: 0
   bMove: 0
   playerSpriteRenderer: {fileID: 0}
 --- !u!1 &519420028
@@ -572,6 +573,7 @@ MonoBehaviour:
   Bungi2: {fileID: 21300000, guid: 7a39f3961b8f0ec4c96203f986b1be95, type: 3}
   Bungi3: {fileID: 21300000, guid: b1b995777a25d634c9114ff309087c89, type: 3}
   Bungi4: {fileID: 21300000, guid: dca5b3a064bdc9b4a95bd589465bb9bd, type: 3}
+  playerSpriteRenderer: {fileID: 0}
 --- !u!1 &914606367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,6 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bAttackSprite6: 0
+  bAttack: 0
   bMove: 0
   playerSpriteRenderer: {fileID: 0}
 --- !u!95 &2145875005

@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
     
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("AttackMaster") && PlayerM.bAttack == true)
+        if (collision.gameObject.CompareTag("AttackMaster"))
         {
             bDamaged = true;
             StartCoroutine(DamagedClear());
