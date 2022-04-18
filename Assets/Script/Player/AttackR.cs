@@ -36,11 +36,11 @@ public class AttackR : MonoBehaviour
             transform.localScale = new Vector3(1f, 0.55f, 1);
             transform.localPosition = new Vector3(-0.2f, 0, 0);
             bSpcial = true;
-            StartCoroutine(DelayRence());
+            StartCoroutine(DelayRence());Debug.Log("dad");
         }
     }
 
-
+    
 
     private void OnTriggerStay2D(Collider2D collision)
     {
