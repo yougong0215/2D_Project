@@ -4,45 +4,105 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    
+    public Sprite WaitJump;
+
     public int maxJummpCount = 1;
     [SerializeField]
     private int jumpCount = 0;
     public float jumpPower = 0f;
+    private bool jumpct;
 
+    // ÄÄÆ÷³ÍÆ®
+    PlayerM PlayerJumpi;
+    private Animator playerAnimator = null;
     protected Transform PlayerTransform = null;
     private Rigidbody2D rigid = null;
+    private SpriteRenderer playerSpriteRenderer = null;
 
     void Start()
     {
+        PlayerJumpi = GameObject.Find("Player").GetComponent<PlayerM>();
         PlayerTransform = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
-    
+
+    int CountY = 0;
+
+    bool EndJumpCLear = false;
     // Update is called once per frame
     void Update()
     {
-        if (jumpCount < maxJummpCount && Input.GetKey(KeyCode.Space))
+
+        Debug.Log("bMove " + PlayerJumpi.bMove);
+        if (jumpCount < maxJummpCount && Input.GetKeyDown(KeyCode.Space))
         {
 
-            //playerAudioSource.Play();
-            jumpCount++;
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            playerAnimator.SetTrigger("StartJumping");
+            StartCoroutine(JumpSans());
+            
+
         }
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2f, LayerMask.GetMask("Ground"));
         if (raycastHit2D.collider != null && jumpCount >= 1)
         {
-
-            jumpCount = 0;
-            //  playerAnimator.SetBool("Jumping", false);
-            //  Debug.Log(raycastHit2D.collider.gameObject.name);
+            StartCoroutine(JumpClear());
         }
-        else
+        if (jumpCount >= 1)
         {
-            //  playerAnimator.SetBool("Jumping", true);
+            if (rigid.velocity.y > 2)
+            {
+                playerAnimator.SetFloat("velocityY", 3f);
+            }
+            else if (rigid.velocity.y <= 2 && rigid.velocity.y >= -2)
+            {
+                playerAnimator.SetFloat("velocityY", 0);
+                CountY++;
+            }
+            else if (rigid.velocity.y < -2)
+            {
+                playerAnimator.SetFloat("velocityY", -3);
+                
+            }
 
+            if(rigid.velocity.y < -0.5f)
+            {
+                EndJumpCLear = true;
+            }
         }
 
+        if (EndJumpCLear == true)
+        {
+            if (rigid.velocity.y == 0 && jumpCount >= 1)
+            {
+                playerAnimator.SetTrigger("EndJump");
+                EndJumpCLear = false;
+                jumpCount = 0;
+                
+            }
+            
+            
+        }
+        
+    }
+
+    IEnumerator JumpClear()
+    {
+        Debug.Log("µé¾î¿È");
+        yield return new WaitForSeconds(1f);
+        {
+            jumpct = false;
+            
+        }
+    }
+    IEnumerator JumpSans()
+    {
+        jumpct = true;
+        jumpCount++;
+        yield return new WaitForSeconds(0.5f);
+
+        rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 }

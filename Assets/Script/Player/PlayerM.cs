@@ -14,7 +14,7 @@ public class PlayerM : MonoBehaviour
     public static bool bInvin = false; // 무적
     public bool bAttack = false; // 공격 활성화 유무
     public static float PlayerX, PlayerY; // 플레이어 실제 위치
-    
+
     // 이동관련
     public bool bMove = false; // 공격중 true되서 못 움직임
 
@@ -28,7 +28,7 @@ public class PlayerM : MonoBehaviour
 
     // private AudioSource playerAudioSource = null;
 
-   // private bool isGrounded = false;
+    // private bool isGrounded = false;
     void Start()
     {
         Sp = GameObject.Find("Rence").GetComponent<SpcialAttackMaster>();
@@ -42,11 +42,29 @@ public class PlayerM : MonoBehaviour
 
     void Update()
     {
+        PJump();
         SpcialAttack();
         Pering();
         PIdle();
         PlayerX = transform.position.x;
         PlayerY = transform.position.y;
+    }
+
+    bool jumpClear = false;
+    void PJump()
+    {
+        if (playerSpriteRenderer.sprite.name == "JumpM1" && jumpClear == false)
+        {
+            StartCoroutine(Jumpiniing());
+        }
+    }
+    IEnumerator Jumpiniing()
+    {
+        jumpClear = true;
+        bMove = true;
+        yield return new WaitForSeconds(0.5f);
+        bMove = false;
+        jumpClear = false;
     }
 
     void SpcialAttack()
@@ -64,7 +82,6 @@ public class PlayerM : MonoBehaviour
             {
                 transform.position += new Vector3(3f, 0, 0);
             }
-            Sp.bBungi = false;   
         }
 
 

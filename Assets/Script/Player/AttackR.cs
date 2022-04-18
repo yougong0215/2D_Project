@@ -32,7 +32,7 @@ public class AttackR : MonoBehaviour
 
         if (SP.bBungi == true)
         {
-          
+            Debug.Log("ª˜¡Ó≈û");
             transform.localScale = new Vector3(1f, 0.55f, 1);
             transform.localPosition = new Vector3(-0.2f, 0, 0);
             bSpcial = true;
@@ -45,32 +45,39 @@ public class AttackR : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         //&& playerSpriteRenderer.sprite.name == "Pering6"
-        if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.transform.position.x <= PlayerM.PlayerX)
+
+            if (PlayerAttack.bAttackSprite6 == true)
             {
-                collision.transform.position += new Vector3(-2, 0, 0);
-            } // <<
-            else if (collision.transform.position.x > PlayerM.PlayerX)
-            {
-                collision.transform.position += new Vector3(2, 0, 0);
-            } // >>
-        }
-        if (bSpcial == true)
-        {
-            Debug.Log("æÓ≈ÿ" + SP.bBungi);
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                collision.transform.position += new Vector3(0, 3, 0);
+                if (collision.transform.position.x <= PlayerM.PlayerX)
+                {
+                    collision.transform.position += new Vector3(-2, 0, 0);
+                } // <<
+                else if (collision.transform.position.x > PlayerM.PlayerX)
+                {
+                    collision.transform.position += new Vector3(2, 0, 0);
+                } // >>
             }
+            
 
 
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (bSpcial == true)
+            {
+                Debug.Log("æÓ≈ÿ" + SP.bBungi);
+                other.transform.position += new Vector3(0, 3, 0);
+            }
+    }
 
     IEnumerator DelayRence()
     {
-        yield return new WaitForSeconds(0.5f);
+        SP.bBungi = false;
+        yield return new WaitForSeconds(0.3f);
+        
         transform.localScale = new Vector3(0.3f, 0.55f, 1);
         bSpcial = false;
     }
