@@ -64,7 +64,6 @@ public class PlayerM : MonoBehaviour
             {
                 transform.position += new Vector3(3f, 0, 0);
             }
-            Sp.bBungi = false;   
         }
 
 
