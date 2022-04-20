@@ -34,16 +34,11 @@ public class SpcialAttackMaster : MonoBehaviour
         {
             Bungi.sprite = Bungi1;
             bBungi = true;
-            Debug.Log(bBungi + " 분기 스어마");
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-
-
-
-     //   if (collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 == true)
         {
             if (GageCool == false && collision.gameObject.CompareTag("Enemy") && PlayerAttack.bAttackSprite6 ==true)
             {
@@ -67,27 +62,11 @@ public class SpcialAttackMaster : MonoBehaviour
 
     }
 
-
-
-
     IEnumerator GageUpDelay()
     {
         GageCool = true;
         yield return new WaitForSeconds(1f);
         GageCool = false;
     }
-    /*
 
-
-
-
-if (playerSpriteRenderer.sprite.name == "swing9")
-{
-    playerAnimator.SetBool("DashAttacking", false);
-    bBungi = false;
-    bInvin = false;
-    bAttack = false;
-}
-    }
-*/
 }

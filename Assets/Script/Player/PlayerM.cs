@@ -17,27 +17,16 @@ public class PlayerM : MonoBehaviour
 
     // 이동관련
     public bool bMove = false; // 공격중 true되서 못 움직임
-
-
-
     // 컴포넌트
     private Animator playerAnimator = null;
     public SpriteRenderer playerSpriteRenderer = null;
     protected Transform PlayerTransform = null;
-
-
-    // private AudioSource playerAudioSource = null;
-
-    // private bool isGrounded = false;
     void Start()
     {
         Sp = GameObject.Find("Rence").GetComponent<SpcialAttackMaster>();
         playerAnimator = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>(); // 플레이어의 트랜스폼 가져오는것
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
-
-        //playerAudioSource = GetComponent<AudioSource>();
-        // playerAnimator.SetBool("",true);
     }
 
     void Update()
@@ -87,9 +76,6 @@ public class PlayerM : MonoBehaviour
 
     }
 
-
-
-
     bool CorutineCoolMaster = false;
     private void PIdle()
     {
@@ -137,11 +123,6 @@ public class PlayerM : MonoBehaviour
         CorutineCoolMaster = false;
     }
 
-
-    private void DelayRence()
-    {
-        transform.localScale = new Vector3(0.3f, 0.55f, 1);
-    }
 
 
 }

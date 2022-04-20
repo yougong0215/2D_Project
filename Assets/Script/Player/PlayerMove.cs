@@ -25,23 +25,29 @@ public class PlayerMove : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                
-                playerAnimator.SetTrigger("Dash");
                 PlayerTransform.Translate(Vector2.right * speed * Time.deltaTime);
+                playerAnimator.SetBool("Dash", true);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                playerAnimator.SetTrigger("Dash");
                 PlayerTransform.Translate(Vector2.left * speed * Time.deltaTime);
+                playerAnimator.SetBool("Dash", true);
             }
 
             /////////////////////////////////////////////////////////////////////
 
         }
-
-        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        else if(PlayerMbMove.bMove == true)
         {
+            playerAnimator.SetBool("Dash", false);
         }
-
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            playerAnimator.SetBool("Dash", false);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            playerAnimator.SetBool("Dash", false);
+        }
     }
 }

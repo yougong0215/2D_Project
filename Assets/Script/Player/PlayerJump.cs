@@ -28,21 +28,15 @@ public class PlayerJump : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    int CountY = 0;
 
     bool EndJumpCLear = false;
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log("bMove " + PlayerJumpi.bMove);
         if (jumpCount < maxJummpCount && Input.GetKeyDown(KeyCode.Space))
         {
-
             playerAnimator.SetTrigger("StartJumping");
             StartCoroutine(JumpSans());
-            
-
         }
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(PlayerTransform.position, Vector3.down, 2f, LayerMask.GetMask("Ground"));
@@ -59,7 +53,6 @@ public class PlayerJump : MonoBehaviour
             else if (rigid.velocity.y <= 2 && rigid.velocity.y >= -2)
             {
                 playerAnimator.SetFloat("velocityY", 0);
-                CountY++;
             }
             else if (rigid.velocity.y < -2)
             {
@@ -80,7 +73,6 @@ public class PlayerJump : MonoBehaviour
                 playerAnimator.SetTrigger("EndJump");
                 EndJumpCLear = false;
                 jumpCount = 0;
-                
             }
             
             
@@ -90,13 +82,13 @@ public class PlayerJump : MonoBehaviour
 
     IEnumerator JumpClear()
     {
-        Debug.Log("µé¾î¿È");
         yield return new WaitForSeconds(1f);
         {
             jumpct = false;
-            
         }
     }
+
+
     IEnumerator JumpSans()
     {
         jumpct = true;

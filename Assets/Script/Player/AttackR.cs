@@ -32,7 +32,6 @@ public class AttackR : MonoBehaviour
 
         if (SP.bBungi == true)
         {
-            Debug.Log("샌즈힇");
             transform.localScale = new Vector3(1f, 0.55f, 1);
             transform.localPosition = new Vector3(-0.2f, 0, 0);
             bSpcial = true;
@@ -44,19 +43,18 @@ public class AttackR : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //&& playerSpriteRenderer.sprite.name == "Pering6"
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy")) // Enemy가 안에 있을때
         {
 
-            if (PlayerAttack.bAttackSprite6 == true)
+            if (PlayerAttack.bAttackSprite6 == true) // Q로 공격해서 해당 스프라이트가 오면
             {
                 if (collision.transform.position.x <= PlayerM.PlayerX)
                 {
-                    collision.transform.position += new Vector3(-2, 0, 0);
+                    collision.transform.position += new Vector3(-2, 0, 0); // 플레이어 위치에 따라 뒤로 밀려남
                 } // <<
                 else if (collision.transform.position.x > PlayerM.PlayerX)
                 {
-                    collision.transform.position += new Vector3(2, 0, 0);
+                    collision.transform.position += new Vector3(2, 0, 0);// 나중에 Addforce 로 바꿔야됨
                 } // >>
             }
             
@@ -66,9 +64,8 @@ public class AttackR : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (bSpcial == true)
+        if (SP.bBungi == true)
             {
-                Debug.Log("어텍" + SP.bBungi);
                 other.transform.position += new Vector3(0, 3, 0);
             }
     }

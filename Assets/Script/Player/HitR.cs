@@ -29,9 +29,6 @@ public class HitR : PlayerM
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-
-
-            //transform.position = new Vector3(0, 0, 0);
         }
 
 
