@@ -10,7 +10,7 @@ public class PlayerFlip : MonoBehaviour
     void Start()
     {
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
-        PlayerFliping = GameObject.Find("Player").GetComponent<PlayerM>();
+        PlayerFliping = GetComponent<PlayerM>();
     }
 
     // Update is called once per frame
